@@ -18,6 +18,7 @@ public:
 	void minHeapify(int iPos);
 private:
 	std::vector<T> heapElements;
+	std::vector<int> positionVec;
 	int heapSize;
 	int maxSize;
 };

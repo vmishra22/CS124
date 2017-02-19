@@ -5,6 +5,7 @@ using namespace std;
 template<class T>
 BinHeap<T>::BinHeap(int iSize) {
 	heapElements(iSize + 2);
+	positionVec(iSize + 2);
 	maxSize = iSize;
 	heapSize = 0;
 }
@@ -20,10 +21,13 @@ void BinHeap<T>::insert(const T & elem)
 	heapSize++;
 	int N = heapSize;
 	heapElements[heapSize] = elem;
+	positionVec[elem.getVertexIndex()] = heapSize;
 	while ((N > 1) && (heapElements[N / 2] > heapElements[N])) {
 		T temp = heapElements[N];
 		heapElements[N] = heapElements[N/2];
+		positionVec[heapElements[N].getVertexIndex()] = N;
 		heapElements[N / 2] = temp;
+		positionVec[temp.getVertexIndex()] = N/2;
 		N = (N / 2);
 	}
 }
