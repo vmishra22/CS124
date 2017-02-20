@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 
-#define EPS 1.0e-09
+#define EPS 1.0e-06
 class GraphVertex {
 public:
 	GraphVertex() { vertexIndex = -1; }

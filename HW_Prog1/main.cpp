@@ -15,13 +15,6 @@ double PrimMST(Graph* iGraph, int startVertex) {
 	vector<bool> MSTSet(numGraphVertices, false);
 	
 	vector<vector<GraphEdge> > graphAdjacencies = iGraph->getAdjacencies();
-	/*
-	for (vector<vector<GraphEdge> >::size_type idx = 1; idx < iGraph->getNumVertices(); idx++) 
-	{
-		dist[idx] = (double)INT_MAX;
-		prev[idx] = -1;
-		MSTSet[idx] = false;
-	}*/
 	dist[startVertex] = 0.0;
 
 	BinHeap<GraphVertex>* heap = new BinHeap<GraphVertex>(numGraphVertices);

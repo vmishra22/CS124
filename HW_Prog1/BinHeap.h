@@ -97,7 +97,7 @@ void BinHeap<T>::minHeapify(int iPos)
 	else {
 		smallest = iPos;
 	}
-	if ((r <= heapSize) && (heapElements[r] < heapElements[iPos])) {
+	if ((r <= heapSize) && (heapElements[r] < heapElements[smallest])) {
 		smallest = r;
 	}
 	if (smallest != iPos) {
