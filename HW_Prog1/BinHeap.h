@@ -9,12 +9,7 @@ using namespace std;
 template <class T>
 class BinHeap {
 public: 
-	BinHeap(int iSize) {
-		heapElements.reserve(iSize + 2);
-		positionVec.reserve(iSize + 2);
-		for (int i = 0; i < iSize + 2; ++i) {
-			positionVec.push_back(-1);
-		}
+	BinHeap(int iSize): heapElements(iSize + 2), positionVec(iSize + 2, -1){
 		maxSize = iSize;
 		heapSize = 0;
 	}
