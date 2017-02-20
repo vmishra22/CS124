@@ -146,7 +146,6 @@
     <ClInclude Include="Graph.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BinHeap.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

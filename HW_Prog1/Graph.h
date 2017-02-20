@@ -5,8 +5,10 @@
 #include <iostream>
 #include <vector>
 
+#define EPS 1.0e-09
 class GraphVertex {
 public:
+	GraphVertex() { vertexIndex = -1; }
 	GraphVertex(int v, double d) : vertexIndex(v), vertexDist(d) {
 	}
 	friend bool operator < (GraphVertex const& lhs, GraphVertex const& rhs);

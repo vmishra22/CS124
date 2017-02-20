@@ -3,12 +3,12 @@
 
 bool operator<(GraphVertex const & lhs, GraphVertex const & rhs)
 {
-	return (lhs.vertexDist-rhs.vertexDist < 1.0e-09);
+	return (lhs.vertexDist-rhs.vertexDist < EPS);
 }
 
 bool operator>(GraphVertex const & lhs, GraphVertex const & rhs)
 {
-	return (lhs.vertexDist - rhs.vertexDist > 1.0e-09);
+	return (lhs.vertexDist - rhs.vertexDist > EPS);
 }
 
 GraphVertex & GraphVertex::operator=(const GraphVertex & rhs)
