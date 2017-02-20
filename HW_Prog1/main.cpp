@@ -4,6 +4,7 @@
 #include "BinHeap.h"
 #include "Graph.h"
 #include <limits.h>
+#include <fstream>
 
 using namespace std;
 
@@ -38,7 +39,9 @@ double PrimMST(Graph* iGraph, int startVertex) {
 		}
 		MSTSet[vertexIndex] = true;
 	}
-	
+
+	if (heap != NULL)
+		delete(heap);
 	for (vector<double>::size_type j = 1; j < (unsigned int)numGraphVertices; j++)
 	{
 		sum += dist[j];
@@ -52,8 +55,13 @@ int main(int argc, char** argv) {
 		cout << "Incorrect input args list" << endl;
 	}
 
-	srand((unsigned int)time(NULL));
 	
+	ofstream output_file("data_output.txt", std::ofstream::app);
+	if (!output_file.is_open()) { 
+		cout << "Output file could not be opened! Terminating!" << endl;
+		return 1;
+	}
+
 	istringstream ss1(argv[2]);
 	int numPoints;
 	if (!(ss1 >> numPoints))
@@ -72,21 +80,34 @@ int main(int argc, char** argv) {
 	switch (dimension)
 	{
 	case 0: {
-		Graph* G = new Graph(numPoints);
-		for (int i = 1; i <= numPoints; i++)
-		{
-			for (int j = 1; j <= numPoints; j++)
-			{
-				if (i == j)
-					continue;
-				double weight = G->getEdgeWeight(i, j);
-				if(weight == -1.0)
-					weight = ((double)rand() / (RAND_MAX));
-				G->addEdge(i, j, weight);
+		int trialIndex = 0;
+		double sumMST = 0.0;
+		while(trialIndex < numTrials) {
+			srand((unsigned int)time(NULL));
+			Graph* G = new Graph(numPoints);
+			if (G != NULL) {
+				for (int i = 1; i <= numPoints; i++)
+				{
+					for (int j = 1; j <= numPoints; j++)
+					{
+						if (i == j)
+							continue;
+						double weight = G->getEdgeWeight(i, j);
+						if (weight == -1.0)
+							weight = ((double)rand() / (RAND_MAX));
+						G->addEdge(i, j, weight);
+					}
+				}
+
+				sumMST += PrimMST(G, 1);
+				delete(G);
 			}
+			trialIndex++;
 		}
-		
-		double sum = PrimMST(G, 1);
+		if (numTrials > 0) {
+			output_file << "n: " << numPoints << " Average: " << (sumMST / numTrials)
+				<< " NumTrials: " << numTrials << " dimension: " << dimension << endl;
+		}
 	}
 		break;
 	case 2:
@@ -99,6 +120,8 @@ int main(int argc, char** argv) {
 		break;
 
 	}
+
+	output_file.close();
 
 	return 0;
 }
