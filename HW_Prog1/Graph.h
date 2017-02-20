@@ -14,6 +14,7 @@ public:
 	friend bool operator < (GraphVertex const& lhs, GraphVertex const& rhs);
 	friend bool operator > (GraphVertex const& lhs, GraphVertex const& rhs);
 	GraphVertex& operator= (const GraphVertex &rhs);
+	void setVertexDist(double val) { vertexDist = val; }
 	int getVertexIndex() const { return vertexIndex; }
 	double getVertexDist() const { return vertexDist; }
 private:
@@ -42,6 +43,7 @@ public:
 	Graph(int vericesSize):mGraphAdjacencies(vericesSize + 1) {
 
 	}
+	double getEdgeWeight(const int& iStartVertex, const int& iEndVertex);
 
 	void addEdge(const int& iStartVertex, const int& iEndVertex, double weight){
 		mGraphAdjacencies[iStartVertex].push_back(GraphEdge(iEndVertex, weight));

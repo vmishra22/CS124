@@ -61,6 +61,7 @@ T BinHeap<T>::extractMin()
 	int root = 1;
 	T min = heapElements[root];
 	heapElements[root] = heapElements[heapSize--];
+	positionVec[heapElements[root].getVertexIndex()] = root;
 	minHeapify(root);
 	return min;
 }
@@ -70,7 +71,9 @@ void BinHeap<T>::changeKey(T & elem, double val)
 {
 	int root = 1;
 	int heapPos = positionVec[elem.getVertexIndex()];
+	heapElements[heapPos].setVertexDist(val);
 	int N = heapPos;
+	minHeapify(N);
 	while ((N > 1) && (heapElements[N / 2] > heapElements[N])) {
 		T temp = heapElements[N];
 		heapElements[N] = heapElements[N / 2];

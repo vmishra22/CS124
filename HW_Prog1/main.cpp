@@ -10,17 +10,18 @@ using namespace std;
 double PrimMST(Graph* iGraph, int startVertex) {
 	double sum = 0.0;
 	int numGraphVertices = iGraph->getNumVertices();
-	vector<double> dist(numGraphVertices);
-	vector<int> prev(numGraphVertices);
-	vector<bool> MSTSet(numGraphVertices);
+	vector<double> dist(numGraphVertices, (double)INT_MAX);
+	vector<int> prev(numGraphVertices, -1);
+	vector<bool> MSTSet(numGraphVertices, false);
 	
 	vector<vector<GraphEdge> > graphAdjacencies = iGraph->getAdjacencies();
+	/*
 	for (vector<vector<GraphEdge> >::size_type idx = 1; idx < iGraph->getNumVertices(); idx++) 
 	{
 		dist[idx] = (double)INT_MAX;
 		prev[idx] = -1;
 		MSTSet[idx] = false;
-	}
+	}*/
 	dist[startVertex] = 0.0;
 
 	BinHeap<GraphVertex>* heap = new BinHeap<GraphVertex>(numGraphVertices);
@@ -42,6 +43,7 @@ double PrimMST(Graph* iGraph, int startVertex) {
 				heap->insert(GraphVertex(edgeOtherVertex, dist[edgeOtherVertex]));
 			}
 		}
+		MSTSet[vertexIndex] = true;
 	}
 	
 	for (vector<double>::size_type j = 1; j < (unsigned int)numGraphVertices; j++)
@@ -78,11 +80,15 @@ int main(int argc, char** argv) {
 	{
 	case 0: {
 		Graph* G = new Graph(numPoints);
-		for (int i = 1; i < numPoints; i++)
+		for (int i = 1; i <= numPoints; i++)
 		{
-			for (int j = i+1; j <= numPoints; j++)
+			for (int j = 1; j <= numPoints; j++)
 			{
-				double weight = ((double)rand() / (RAND_MAX));
+				if (i == j)
+					continue;
+				double weight = G->getEdgeWeight(i, j);
+				if(weight == -1.0)
+					weight = ((double)rand() / (RAND_MAX));
 				G->addEdge(i, j, weight);
 			}
 		}
