@@ -5,6 +5,8 @@
 #include "Graph.h"
 #include <limits.h>
 #include <fstream>
+#include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
@@ -19,7 +21,8 @@ double PrimMST(Graph* iGraph, int startVertex) {
 	dist[startVertex] = 0.0;
 
 	BinHeap<GraphVertex>* heap = new BinHeap<GraphVertex>(numGraphVertices);
-	heap->insert(GraphVertex(startVertex, 0.0));
+	GraphVertex s(startVertex, 0.0);
+	heap->insert(s);
 
 	while (!heap->isEmpty()) 
 	{
@@ -34,7 +37,8 @@ double PrimMST(Graph* iGraph, int startVertex) {
 			{
 				dist[edgeOtherVertex] = currentEdge.getEdgeWeight();
 				prev[edgeOtherVertex] = vertexIndex;
-				heap->insert(GraphVertex(edgeOtherVertex, dist[edgeOtherVertex]));
+				GraphVertex other(edgeOtherVertex, dist[edgeOtherVertex]);
+				heap->insert(other);
 			}
 		}
 		MSTSet[vertexIndex] = true;
@@ -96,8 +100,7 @@ int main(int argc, char** argv) {
 						double weight = G->getEdgeWeight(i, j);
 						if (weight == -1.0)
 							weight = ((double)rand() / (RAND_MAX));
-						if(weight < 0.05)
-							G->addEdge(i, j, weight);
+						G->addEdge(i, j, weight);
 					}
 				}
 

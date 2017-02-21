@@ -69,7 +69,6 @@ T BinHeap<T>::extractMin()
 template<class T>
 void BinHeap<T>::changeKey(T & elem, double val)
 {
-	int root = 1;
 	int heapPos = positionVec[elem.getVertexIndex()];
 	heapElements[heapPos].setVertexDist(val);
 	int N = heapPos;

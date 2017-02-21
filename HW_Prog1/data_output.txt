@@ -13,3 +13,7 @@ n: 6 Average: 2.1878 NumTrials: 5 dimension: 4
 n: 6 Average: 2.22796 NumTrials: 5 dimension: 4
 n: 6 Average: 2.90102 NumTrials: 5 dimension: 4
 n: 6 Average: 3.0093 NumTrials: 5 dimension: 4
+n: 6 Average: 3.3259 NumTrials: 5 dimension: 4
+n: 6 Average: 1.07374e+10 NumTrials: 5 dimension: 0
+n: 6 Average: 1.07374e+10 NumTrials: 5 dimension: 0
+n: 6 Average: 1.07434 NumTrials: 5 dimension: 0
