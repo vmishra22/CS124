@@ -79,7 +79,8 @@ int main(int argc, char** argv) {
 
 	switch (dimension)
 	{
-	case 0: {
+	case 0: 
+	{
 		int trialIndex = 0;
 		double sumMST = 0.0;
 		while(trialIndex < numTrials) {
@@ -95,6 +96,46 @@ int main(int argc, char** argv) {
 						double weight = G->getEdgeWeight(i, j);
 						if (weight == -1.0)
 							weight = ((double)rand() / (RAND_MAX));
+						if(weight < 0.05)
+							G->addEdge(i, j, weight);
+					}
+				}
+
+				sumMST += PrimMST(G, 1);
+				delete(G);
+			}
+			trialIndex++;
+		}
+		if (numTrials > 0) {
+			output_file << "n: " << numPoints << " Average: " << (sumMST / numTrials)
+				<< " NumTrials: " << numTrials << " dimension: " << dimension << endl;
+		}
+	}
+		break;
+	case 2: 
+	{
+		int trialIndex = 0;
+		double sumMST = 0.0;
+		while (trialIndex < numTrials) {
+			srand((unsigned int)time(0));
+			Graph* G = new Graph(numPoints);
+			if (G != NULL) {
+				for (int i = 1; i <= numPoints; i++)
+				{
+					double iX = ((double)rand() / (RAND_MAX));
+					double iY = ((double)rand() / (RAND_MAX));
+					for (int j = 1; j <= numPoints; j++)
+					{
+						if (i == j)
+							continue;
+						double weight = G->getEdgeWeight(i, j);
+						if (weight == -1.0)
+						{
+							double jX = ((double)rand() / (RAND_MAX));
+							double jY = ((double)rand() / (RAND_MAX));
+							weight = sqrt(pow((iX - jX), 2) + pow((iY - jY), 2));
+						}
+						/*if (weight < 0.05)*/
 						G->addEdge(i, j, weight);
 					}
 				}
@@ -110,11 +151,89 @@ int main(int argc, char** argv) {
 		}
 	}
 		break;
-	case 2:
-		break;
 	case 3:
+	{
+		int trialIndex = 0;
+		double sumMST = 0.0;
+		while (trialIndex < numTrials) {
+			srand((unsigned int)time(0));
+			Graph* G = new Graph(numPoints);
+			if (G != NULL) {
+				for (int i = 1; i <= numPoints; i++)
+				{
+					double iX = ((double)rand() / (RAND_MAX));
+					double iY = ((double)rand() / (RAND_MAX));
+					double iZ = ((double)rand() / (RAND_MAX));
+					for (int j = 1; j <= numPoints; j++)
+					{
+						if (i == j)
+							continue;
+						double weight = G->getEdgeWeight(i, j);
+						if (weight == -1.0)
+						{
+							double jX = ((double)rand() / (RAND_MAX));
+							double jY = ((double)rand() / (RAND_MAX));
+							double jZ = ((double)rand() / (RAND_MAX));
+							weight = sqrt(pow((iX - jX), 2) + pow((iY - jY), 2) + pow((iZ - jZ), 2));
+						}
+						/*if (weight < 0.05)*/
+						G->addEdge(i, j, weight);
+					}
+				}
+
+				sumMST += PrimMST(G, 1);
+				delete(G);
+			}
+			trialIndex++;
+		}
+		if (numTrials > 0) {
+			output_file << "n: " << numPoints << " Average: " << (sumMST / numTrials)
+				<< " NumTrials: " << numTrials << " dimension: " << dimension << endl;
+		}
+	}
 		break;
 	case 4:
+	{
+		int trialIndex = 0;
+		double sumMST = 0.0;
+		while (trialIndex < numTrials) {
+			srand((unsigned int)time(0));
+			Graph* G = new Graph(numPoints);
+			if (G != NULL) {
+				for (int i = 1; i <= numPoints; i++)
+				{
+					double iX = ((double)rand() / (RAND_MAX));
+					double iY = ((double)rand() / (RAND_MAX));
+					double iZ = ((double)rand() / (RAND_MAX));
+					double iW = ((double)rand() / (RAND_MAX));
+					for (int j = 1; j <= numPoints; j++)
+					{
+						if (i == j)
+							continue;
+						double weight = G->getEdgeWeight(i, j);
+						if (weight == -1.0)
+						{
+							double jX = ((double)rand() / (RAND_MAX));
+							double jY = ((double)rand() / (RAND_MAX));
+							double jZ = ((double)rand() / (RAND_MAX));
+							double jW = ((double)rand() / (RAND_MAX));
+							weight = sqrt(pow((iX - jX), 2) + pow((iY - jY), 2) + pow((iZ - jZ), 2) + pow((iW - jW), 2));
+						}
+						/*if (weight < 0.05)*/
+						G->addEdge(i, j, weight);
+					}
+				}
+
+				sumMST += PrimMST(G, 1);
+				delete(G);
+			}
+			trialIndex++;
+		}
+		if (numTrials > 0) {
+			output_file << "n: " << numPoints << " Average: " << (sumMST / numTrials)
+				<< " NumTrials: " << numTrials << " dimension: " << dimension << endl;
+		}
+	}
 		break;
 	default:
 		break;

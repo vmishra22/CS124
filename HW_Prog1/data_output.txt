@@ -1,0 +1,15 @@
+n: 10 Average: 1.00746 NumTrials: 5 dimension: 0
+n: 50 Average: 1.22661 NumTrials: 5 dimension: 0
+n: 100 Average: 0.901865 NumTrials: 5 dimension: 0
+n: 6 Average: 1.29193 NumTrials: 5 dimension: 2
+n: 6 Average: 1.5126 NumTrials: 5 dimension: 3
+n: 6 Average: 1.65005 NumTrials: 5 dimension: 3
+n: 6 Average: 1.50677 NumTrials: 5 dimension: 3
+n: 6 Average: 2.2756 NumTrials: 5 dimension: 3
+n: 6 Average: 1.87221 NumTrials: 5 dimension: 3
+n: 6 Average: 1.13761 NumTrials: 5 dimension: 3
+n: 6 Average: 3.70278 NumTrials: 5 dimension: 4
+n: 6 Average: 2.1878 NumTrials: 5 dimension: 4
+n: 6 Average: 2.22796 NumTrials: 5 dimension: 4
+n: 6 Average: 2.90102 NumTrials: 5 dimension: 4
+n: 6 Average: 3.0093 NumTrials: 5 dimension: 4
