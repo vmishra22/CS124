@@ -7,6 +7,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -46,6 +47,9 @@ double PrimMST(Graph* iGraph, int startVertex) {
 
 	if (heap != NULL)
 		delete(heap);
+
+	double cUpper = *(max_element(dist.begin()+1, dist.end()));
+	cout << "n: "<< numGraphVertices-1<< "Max Weight: " << cUpper << endl;
 	for (vector<double>::size_type j = 1; j < (unsigned int)numGraphVertices; j++)
 	{
 		sum += dist[j];
@@ -87,20 +91,30 @@ int main(int argc, char** argv) {
 	{
 		int trialIndex = 0;
 		double sumMST = 0.0;
+		double maxWeight = 1.1;
+		if(numPoints >= 100 && numPoints <1000) maxWeight = 0.01;
+		else if (numPoints >= 1000 && numPoints <2000) maxWeight = 0.008;
+		else if (numPoints >= 2000 && numPoints <4000) maxWeight = 0.004;
+		else if (numPoints >= 4000 && numPoints <8000) maxWeight = 0.002;
+		else if (numPoints >= 8000 && numPoints <16000) maxWeight = 0.0016;
+		else if (numPoints >= 16000 && numPoints <32000) maxWeight = 0.001;
+		else if (numPoints >= 32000 && numPoints <64000) maxWeight = 0.0007;
+		else if (numPoints >= 64000 && numPoints <128000) maxWeight = 0.0003;
+		else if (numPoints >= 128000) maxWeight = 0.00015;
 		while(trialIndex < numTrials) {
 			srand((unsigned int)time(NULL));
 			Graph* G = new Graph(numPoints);
 			if (G != NULL) {
-				for (int i = 1; i <= numPoints; i++)
+				for (int i = 1; i < numPoints; i++)
 				{
-					for (int j = 1; j <= numPoints; j++)
+					for (int j = i+1; j <= numPoints; j++)
 					{
-						if (i == j)
-							continue;
-						double weight = G->getEdgeWeight(i, j);
-						if (weight == -1.0)
-							weight = ((double)rand() / (RAND_MAX));
-						G->addEdge(i, j, weight);
+						double weight = ((double)rand() / (RAND_MAX));
+						if (weight - maxWeight < EPS) {
+							cout << "i: " << i << " j: " << j << endl;
+							G->addEdge(i, j, weight);
+							G->addEdge(j, i, weight);
+						}
 					}
 				}
 
@@ -119,27 +133,37 @@ int main(int argc, char** argv) {
 	{
 		int trialIndex = 0;
 		double sumMST = 0.0;
+		double maxWeight = 2.0;
+		if (numPoints >= 100 && numPoints<1000) maxWeight = 0.20;
+		else if (numPoints >= 1000 && numPoints<2000) maxWeight = 0.10;
+		else if (numPoints >= 2000 && numPoints <4000) maxWeight = 0.06;
+		else if (numPoints >= 4000) maxWeight = 0.04;
+		/*else if (numPoints >= 1000 && numPoints <2000) maxWeight = 0.008;
+		else if (numPoints >= 2000 && numPoints <4000) maxWeight = 0.004;
+		else if (numPoints >= 4000 && numPoints <8000) maxWeight = 0.002;
+		else if (numPoints >= 8000 && numPoints <16000) maxWeight = 0.0016;
+		else if (numPoints >= 16000 && numPoints <32000) maxWeight = 0.001;
+		else if (numPoints >= 32000 && numPoints <64000) maxWeight = 0.0007;
+		else if (numPoints >= 64000 && numPoints <128000) maxWeight = 0.0003;
+		else if (numPoints >= 128000) maxWeight = 0.00015;*/
 		while (trialIndex < numTrials) {
 			srand((unsigned int)time(0));
 			Graph* G = new Graph(numPoints);
 			if (G != NULL) {
-				for (int i = 1; i <= numPoints; i++)
+				for (int i = 1; i < numPoints; i++)
 				{
 					double iX = ((double)rand() / (RAND_MAX));
 					double iY = ((double)rand() / (RAND_MAX));
-					for (int j = 1; j <= numPoints; j++)
+					for (int j = i+1; j <=numPoints; j++)
 					{
-						if (i == j)
-							continue;
-						double weight = G->getEdgeWeight(i, j);
-						if (weight == -1.0)
-						{
-							double jX = ((double)rand() / (RAND_MAX));
-							double jY = ((double)rand() / (RAND_MAX));
-							weight = sqrt(pow((iX - jX), 2) + pow((iY - jY), 2));
+						double jX = ((double)rand() / (RAND_MAX));
+						double jY = ((double)rand() / (RAND_MAX));
+						double weight = sqrt(pow((iX - jX), 2) + pow((iY - jY), 2));
+						if (weight - maxWeight < EPS) {
+							cout << "i: " << i << " j: " << j << endl;
+							G->addEdge(i, j, weight);
+							G->addEdge(j, i, weight);
 						}
-						/*if (weight < 0.05)*/
-						G->addEdge(i, j, weight);
 					}
 				}
 
