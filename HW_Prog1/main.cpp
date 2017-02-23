@@ -136,8 +136,13 @@ int main(int argc, char** argv) {
 		double maxWeight = 2.0;
 		if (numPoints >= 100 && numPoints<1000) maxWeight = 0.20;
 		else if (numPoints >= 1000 && numPoints<2000) maxWeight = 0.10;
-		else if (numPoints >= 2000 && numPoints <4000) maxWeight = 0.06;
-		else if (numPoints >= 4000) maxWeight = 0.04;
+		else if (numPoints >= 2000 && numPoints<4000) maxWeight = 0.06;
+		else if (numPoints >= 4000 && numPoints<8000) maxWeight = 0.04;
+		else if (numPoints >= 8000 && numPoints<16000) maxWeight = 0.03;
+		else if (numPoints >= 16000 && numPoints<32000) maxWeight = 0.02;
+		else if (numPoints >= 32000 && numPoints <64000) maxWeight = 0.015;
+		else if (numPoints >= 64000 && numPoints <128000) maxWeight = 0.010;
+		else if (numPoints >= 128000) maxWeight = 0.007;
 		/*else if (numPoints >= 1000 && numPoints <2000) maxWeight = 0.008;
 		else if (numPoints >= 2000 && numPoints <4000) maxWeight = 0.004;
 		else if (numPoints >= 4000 && numPoints <8000) maxWeight = 0.002;
