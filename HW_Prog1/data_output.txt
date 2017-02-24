@@ -45,3 +45,13 @@ n: 100 Average: 5.83182 NumTrials: 5 dimension: 2
 n: 100 Average: 5.72732 NumTrials: 5 dimension: 2
 n: 2000 Average: 25.6554 NumTrials: 5 dimension: 2
 n: 4000 Average: 36.1502 NumTrials: 5 dimension: 2
+n: 100 Average: 14.4957 NumTrials: 5 dimension: 3
+n: 100 Average: 13.4876 NumTrials: 5 dimension: 3
+n: 2000 Average: 98.6522 NumTrials: 5 dimension: 3
+n: 100 Average: 22.4538 NumTrials: 5 dimension: 4
+n: 100 Average: 22.2458 NumTrials: 5 dimension: 4
+n: 1000 Average: 123.029 NumTrials: 5 dimension: 4
+n: 2000 Average: 202.557 NumTrials: 5 dimension: 4
+n: 128 Average: 1.1993 NumTrials: 5 dimension: 0
+n: 128 Average: 1.14692 NumTrials: 5 dimension: 0
+n: 2048 Average: 26.113 NumTrials: 5 dimension: 2
