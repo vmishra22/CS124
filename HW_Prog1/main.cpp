@@ -187,7 +187,7 @@ int main(int argc, char** argv) {
 		else if (numPoints >= 8000 && numPoints<16000) maxWeight = 0.08;
 		else if (numPoints >= 16000 && numPoints<32000) maxWeight = 0.07;
 		else if (numPoints >= 32000 && numPoints <64000) maxWeight = 0.07;
-		else if (numPoints >= 64000 && numPoints <128000) maxWeight = 0.04;
+		else if (numPoints >= 64000 && numPoints <128000) maxWeight = 0.06;
 		else if (numPoints >= 128000) maxWeight = 0.04;
 		while (trialIndex < numTrials) {
 			srand((unsigned int)time(0));
@@ -231,8 +231,8 @@ int main(int argc, char** argv) {
 		if (numPoints >= 100 && numPoints<1000) maxWeight = 0.5;
 		else if (numPoints >= 1000 && numPoints<2000) maxWeight = 0.3;
 		else if (numPoints >= 2000 && numPoints<4000) maxWeight = 0.25;
-		else if (numPoints >= 4000 && numPoints < 8000) maxWeight = 0.20;
-		else if (numPoints >= 8000 && numPoints<16000) maxWeight = 0.16;
+		else if (numPoints >= 4000 && numPoints < 8000) maxWeight = 0.23;
+		else if (numPoints >= 8000 && numPoints<16000) maxWeight = 0.20;
 		else if (numPoints >= 16000 && numPoints<32000) maxWeight = 0.15;
 		else if (numPoints >= 32000 && numPoints <64000) maxWeight = 0.12;
 		else if (numPoints >= 64000 && numPoints <128000) maxWeight = 0.10;
