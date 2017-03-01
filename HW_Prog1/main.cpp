@@ -6,6 +6,7 @@
 #include <limits.h>
 #include <fstream>
 #include <cstdlib>
+#include <chrono>
 #include <cmath>
 #include <algorithm>
 
@@ -48,8 +49,6 @@ double PrimMST(Graph* iGraph, int startVertex) {
 	if (heap != NULL)
 		delete(heap);
 
-	double cUpper = *(max_element(dist.begin()+1, dist.end()));
-	cout << "n: "<< numGraphVertices-1<< "Max Weight: " << cUpper << endl;
 	for (vector<double>::size_type j = 1; j < (unsigned int)numGraphVertices; j++)
 	{
 		sum += dist[j];
@@ -62,12 +61,15 @@ int main(int argc, char** argv) {
 		cout << "Incorrect input args list" << endl;
 	}
 
+	using namespace chrono;
+	chrono::steady_clock::time_point tStart;
+	chrono::steady_clock::time_point tEnd;
 	
-	ofstream output_file("data_output.txt", std::ofstream::app);
-	if (!output_file.is_open()) { 
-		cout << "Output file could not be opened! Terminating!" << endl;
-		return 1;
-	}
+	// ofstream output_file("data_output.txt", std::ofstream::app);
+	// if (!output_file.is_open()) { 
+	// 	cout << "Output file could not be opened! Terminating!" << endl;
+	// 	return 1;
+	// }
 
 	istringstream ss1(argv[2]);
 	int numPoints;
@@ -88,6 +90,8 @@ int main(int argc, char** argv) {
 	{
 	case 0: 
 	{
+		tStart = steady_clock::now();
+		
 		int trialIndex = 0;
 		double sumMST = 0.0;
 		double maxWeight = 1.1;
@@ -110,7 +114,6 @@ int main(int argc, char** argv) {
 					{
 						double weight = ((double)rand() / (RAND_MAX));
 						if (weight - maxWeight < EPS) {
-							cout << "i: " << i << " j: " << j << endl;
 							G->addEdge(i, j, weight);
 							G->addEdge(j, i, weight);
 						}
@@ -123,9 +126,15 @@ int main(int argc, char** argv) {
 			trialIndex++;
 		}
 		if (numTrials > 0) {
-			output_file << "n: " << numPoints << " Average: " << (sumMST / numTrials)
+			cout << "numPoints: " << numPoints << " Average: " << (sumMST / numTrials)
 				<< " NumTrials: " << numTrials << " dimension: " << dimension << endl;
 		}
+
+		tEnd = steady_clock::now();
+		duration<double, std::milli> diff = tEnd - tStart;
+		cout << "Time for dimension 0, nPoints: " << numPoints << " nTrials: "
+			<< numTrials << ": " << diff.count() << " milliseconds"<< endl;
+
 	}
 		break;
 	case 2: 
@@ -141,7 +150,7 @@ int main(int argc, char** argv) {
 		else if (numPoints >= 16000 && numPoints<32000) maxWeight = 0.02;
 		else if (numPoints >= 32000 && numPoints <64000) maxWeight = 0.015;
 		else if (numPoints >= 64000 && numPoints <128000) maxWeight = 0.010;
-		else if (numPoints >= 128000) maxWeight = 0.010;
+		else if (numPoints >= 128000) maxWeight = 0.009;
 		
 		while (trialIndex < numTrials) {
 			srand((unsigned int)time(0));
@@ -157,7 +166,6 @@ int main(int argc, char** argv) {
 						double jY = ((double)rand() / (RAND_MAX));
 						double weight = sqrt(pow((iX - jX), 2) + pow((iY - jY), 2));
 						if (weight - maxWeight < EPS) {
-							cout << "i: " << i << " j: " << j << endl;
 							G->addEdge(i, j, weight);
 							G->addEdge(j, i, weight);
 						}
@@ -170,7 +178,7 @@ int main(int argc, char** argv) {
 			trialIndex++;
 		}
 		if (numTrials > 0) {
-			output_file << "n: " << numPoints << " Average: " << (sumMST / numTrials)
+			cout << "numPoints: " << numPoints << " Average: " << (sumMST / numTrials)
 				<< " NumTrials: " << numTrials << " dimension: " << dimension << endl;
 		}
 	}
@@ -205,7 +213,6 @@ int main(int argc, char** argv) {
 						double jZ = ((double)rand() / (RAND_MAX));
 						double weight = sqrt(pow((iX - jX), 2) + pow((iY - jY), 2) + pow((iZ - jZ), 2));
 						if (weight - maxWeight < EPS) {
-							cout << "i: " << i << " j: " << j << endl;
 							G->addEdge(i, j, weight);
 							G->addEdge(j, i, weight);
 						}
@@ -218,7 +225,7 @@ int main(int argc, char** argv) {
 			trialIndex++;
 		}
 		if (numTrials > 0) {
-			output_file << "n: " << numPoints << " Average: " << (sumMST / numTrials)
+			cout << "numPoints: " << numPoints << " Average: " << (sumMST / numTrials)
 				<< " NumTrials: " << numTrials << " dimension: " << dimension << endl;
 		}
 	}
@@ -236,7 +243,7 @@ int main(int argc, char** argv) {
 		else if (numPoints >= 16000 && numPoints<32000) maxWeight = 0.15;
 		else if (numPoints >= 32000 && numPoints <64000) maxWeight = 0.12;
 		else if (numPoints >= 64000 && numPoints <128000) maxWeight = 0.10;
-		else if (numPoints >= 128000) maxWeight = 0.08;
+		else if (numPoints >= 128000) maxWeight = 0.10;
 		while (trialIndex < numTrials) {
 			srand((unsigned int)time(0));
 			Graph* G = new Graph(numPoints);
@@ -256,7 +263,6 @@ int main(int argc, char** argv) {
 						double weight = sqrt(pow((iX - jX), 2) + pow((iY - jY), 2) + pow((iZ - jZ), 2) + pow((iW - jW), 2));
 						
 						if (weight - maxWeight < EPS) {
-							cout << "i: " << i << " j: " << j << endl;
 							G->addEdge(i, j, weight);
 							G->addEdge(j, i, weight);
 						}
@@ -269,7 +275,7 @@ int main(int argc, char** argv) {
 			trialIndex++;
 		}
 		if (numTrials > 0) {
-			output_file << "n: " << numPoints << " Average: " << (sumMST / numTrials)
+			cout << "numPoints: " << numPoints << " Average: " << (sumMST / numTrials)
 				<< " NumTrials: " << numTrials << " dimension: " << dimension << endl;
 		}
 	}
@@ -279,7 +285,7 @@ int main(int argc, char** argv) {
 
 	}
 
-	output_file.close();
+	//output_file.close();
 
 	return 0;
 }
